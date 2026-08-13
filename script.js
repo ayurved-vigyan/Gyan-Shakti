@@ -34,38 +34,173 @@ function goToBanner(index){ showBanner(index); }
 
 renderBanners();
 setInterval(nextBanner,5000);
-// Toggle between Login and Register Mode
+/* =========================================
+   GYAN SHAKTI — LOGIN / REGISTER TOGGLE
+========================================= */
+
 const registerToggleBtn = document.getElementById("registerToggleBtn");
 const authTitle = document.getElementById("authTitle");
 const authSubtitle = document.getElementById("authSubtitle");
-const submitBtnText = document.getElementById("submitBtnText");
+const authSubmitBtn = document.getElementById("authSubmitBtn");
 const toggleText = document.getElementById("toggleText");
 
 let isRegisterMode = false;
 
-if (registerToggleBtn) {
-  registerToggleBtn.addEventListener("click", function(e) {
-    e.preventDefault();
-    isRegisterMode = !isRegisterMode;
 
-    if (isRegisterMode) {
-      authTitle.textContent = "CREATE ACCOUNT";
-      authSubtitle.textContent = "Join Gyan Shakti & start learning today.";
-      submitBtnText.textContent = "Sign Up";
-      toggleText.innerHTML = `Already have an account? <a href="#" id="registerToggleBtn">Login here</a>`;
-    } else {
-      authTitle.textContent = "GYAN SHAKTI";
-      authSubtitle.textContent = "Welcome back! Please login to your account.";
-      submitBtnText.textContent = "Sign In";
-      toggleText.innerHTML = `Don't have an account? <a href="#" id="registerToggleBtn">Register here</a>`;
-    }
-    
-    // Re-bind event to newly created toggle link
-    document.getElementById("registerToggleBtn").addEventListener("click", arguments.callee);
-  });
+/* -----------------------------------------
+   Update Authentication Mode
+----------------------------------------- */
+
+function updateAuthMode() {
+
+  if (!authTitle || !authSubtitle || !authSubmitBtn || !toggleText) {
+    return;
+  }
+
+  if (isRegisterMode) {
+
+    /* REGISTER MODE */
+
+    authTitle.textContent = "CREATE ACCOUNT";
+
+    authSubtitle.textContent =
+      "Join Gyan Shakti & start learning today.";
+
+    authSubmitBtn.textContent = "Sign Up";
+
+    authSubmitBtn.setAttribute(
+      "aria-label",
+      "Create your Gyan Shakti account"
+    );
+
+    toggleText.innerHTML =
+      'Already have an account? ' +
+      '<a href="#" id="registerToggleBtn">Login here</a>';
+
+  } else {
+
+    /* LOGIN MODE */
+
+    authTitle.textContent = "GYAN SHAKTI";
+
+    authSubtitle.textContent =
+      "Welcome back! Please login to your account.";
+
+    authSubmitBtn.textContent = "Sign In";
+
+    authSubmitBtn.setAttribute(
+      "aria-label",
+      "Sign in to your Gyan Shakti account"
+    );
+
+    toggleText.innerHTML =
+      'Don\'t have an account? ' +
+      '<a href="#" id="registerToggleBtn">Register here</a>';
+  }
 }
 
-// Social Login Handler Function
+
+/* -----------------------------------------
+   Toggle Login / Register
+----------------------------------------- */
+
+if (registerToggleBtn) {
+
+  registerToggleBtn.addEventListener("click", function (event) {
+
+    event.preventDefault();
+
+    isRegisterMode = !isRegisterMode;
+
+    updateAuthMode();
+
+  });
+
+}
+
+
+/* -----------------------------------------
+   Handle Toggle Link Dynamically
+----------------------------------------- */
+
+if (toggleText) {
+
+  toggleText.addEventListener("click", function (event) {
+
+    const toggleLink = event.target.closest("#registerToggleBtn");
+
+    if (!toggleLink) {
+      return;
+    }
+
+    event.preventDefault();
+
+    isRegisterMode = !isRegisterMode;
+
+    updateAuthMode();
+
+  });
+
+}
+
+
+/* =========================================
+   SOCIAL LOGIN
+========================================= */
+
+const googleLoginBtn = document.getElementById("googleLoginBtn");
+const facebookLoginBtn = document.getElementById("facebookLoginBtn");
+
+
+/* Google */
+
+if (googleLoginBtn) {
+
+  googleLoginBtn.addEventListener("click", function () {
+
+    handleSocialLogin("Google");
+
+  });
+
+}
+
+
+/* Facebook */
+
+if (facebookLoginBtn) {
+
+  facebookLoginBtn.addEventListener("click", function () {
+
+    handleSocialLogin("Facebook");
+
+  });
+
+}
+
+
+/* -----------------------------------------
+   Social Login Handler
+----------------------------------------- */
+
 function handleSocialLogin(provider) {
-  alert(`${provider} Authentication integration will be connected with Firebase/Supabase in the next step!`);
+
+  const supportedProviders = [
+    "Google",
+    "Facebook"
+  ];
+
+  if (!supportedProviders.includes(provider)) {
+
+    console.error(
+      "Unsupported authentication provider:",
+      provider
+    );
+
+    return;
+  }
+
+  alert(
+    `${provider} login integration will be connected in the Authentication Engine.`
+  );
+
 }
