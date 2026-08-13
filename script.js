@@ -35,172 +35,472 @@ function goToBanner(index){ showBanner(index); }
 renderBanners();
 setInterval(nextBanner,5000);
 /* =========================================
-   GYAN SHAKTI — LOGIN / REGISTER TOGGLE
+   GYAN SHAKTI AUTH SYSTEM
 ========================================= */
 
-const registerToggleBtn = document.getElementById("registerToggleBtn");
-const authTitle = document.getElementById("authTitle");
-const authSubtitle = document.getElementById("authSubtitle");
-const authSubmitBtn = document.getElementById("authSubmitBtn");
-const toggleText = document.getElementById("toggleText");
+document.addEventListener("DOMContentLoaded", function () {
 
-let isRegisterMode = false;
+  /* -----------------------------------------
+     ELEMENTS
+  ----------------------------------------- */
 
+  const authModal =
+    document.getElementById("authModal");
 
-/* -----------------------------------------
-   Update Authentication Mode
------------------------------------------ */
+  const closeAuthModal =
+    document.getElementById("closeAuthModal");
 
-function updateAuthMode() {
+  const authForm =
+    document.getElementById("authForm");
 
-  if (!authTitle || !authSubtitle || !authSubmitBtn || !toggleText) {
-    return;
-  }
+  const authTitle =
+    document.getElementById("authTitle");
 
-  if (isRegisterMode) {
+  const authSubtitle =
+    document.getElementById("authSubtitle");
 
-    /* REGISTER MODE */
+  const authSubmitBtn =
+    document.getElementById("authSubmitBtn");
 
-    authTitle.textContent = "CREATE ACCOUNT";
+  const toggleText =
+    document.getElementById("toggleText");
 
-    authSubtitle.textContent =
-      "Join Gyan Shakti & start learning today.";
+  const forgotPasswordBtn =
+    document.getElementById("forgotPasswordBtn");
 
-    authSubmitBtn.textContent = "Sign Up";
+  const googleLoginBtn =
+    document.getElementById("googleLoginBtn");
 
-    authSubmitBtn.setAttribute(
-      "aria-label",
-      "Create your Gyan Shakti account"
-    );
-
-    toggleText.innerHTML =
-      'Already have an account? ' +
-      '<a href="#" id="registerToggleBtn">Login here</a>';
-
-  } else {
-
-    /* LOGIN MODE */
-
-    authTitle.textContent = "GYAN SHAKTI";
-
-    authSubtitle.textContent =
-      "Welcome back! Please login to your account.";
-
-    authSubmitBtn.textContent = "Sign In";
-
-    authSubmitBtn.setAttribute(
-      "aria-label",
-      "Sign in to your Gyan Shakti account"
-    );
-
-    toggleText.innerHTML =
-      'Don\'t have an account? ' +
-      '<a href="#" id="registerToggleBtn">Register here</a>';
-  }
-}
+  const facebookLoginBtn =
+    document.getElementById("facebookLoginBtn");
 
 
-/* -----------------------------------------
-   Toggle Login / Register
------------------------------------------ */
+  /* -----------------------------------------
+     STATE
+  ----------------------------------------- */
 
-if (registerToggleBtn) {
-
-  registerToggleBtn.addEventListener("click", function (event) {
-
-    event.preventDefault();
-
-    isRegisterMode = !isRegisterMode;
-
-    updateAuthMode();
-
-  });
-
-}
+  let isRegisterMode = false;
 
 
-/* -----------------------------------------
-   Handle Toggle Link Dynamically
------------------------------------------ */
+  /* -----------------------------------------
+     OPEN MODAL
+  ----------------------------------------- */
 
-if (toggleText) {
+  function openAuthModal() {
 
-  toggleText.addEventListener("click", function (event) {
-
-    const toggleLink = event.target.closest("#registerToggleBtn");
-
-    if (!toggleLink) {
+    if (!authModal) {
+      console.error("Auth Modal not found.");
       return;
     }
 
-    event.preventDefault();
+    authModal.classList.add("active");
 
-    isRegisterMode = !isRegisterMode;
-
-    updateAuthMode();
-
-  });
-
-}
-
-
-/* =========================================
-   SOCIAL LOGIN
-========================================= */
-
-const googleLoginBtn = document.getElementById("googleLoginBtn");
-const facebookLoginBtn = document.getElementById("facebookLoginBtn");
-
-
-/* Google */
-
-if (googleLoginBtn) {
-
-  googleLoginBtn.addEventListener("click", function () {
-
-    handleSocialLogin("Google");
-
-  });
-
-}
-
-
-/* Facebook */
-
-if (facebookLoginBtn) {
-
-  facebookLoginBtn.addEventListener("click", function () {
-
-    handleSocialLogin("Facebook");
-
-  });
-
-}
-
-
-/* -----------------------------------------
-   Social Login Handler
------------------------------------------ */
-
-function handleSocialLogin(provider) {
-
-  const supportedProviders = [
-    "Google",
-    "Facebook"
-  ];
-
-  if (!supportedProviders.includes(provider)) {
-
-    console.error(
-      "Unsupported authentication provider:",
-      provider
+    authModal.setAttribute(
+      "aria-hidden",
+      "false"
     );
 
-    return;
+    document.body.style.overflow = "hidden";
+
   }
 
-  alert(
-    `${provider} login integration will be connected in the Authentication Engine.`
+
+  /* -----------------------------------------
+     CLOSE MODAL
+  ----------------------------------------- */
+
+  function closeAuthModalFunc() {
+
+    if (!authModal) {
+      return;
+    }
+
+    authModal.classList.remove("active");
+
+    authModal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.style.overflow = "";
+
+  }
+
+
+  /* -----------------------------------------
+     LOGIN BUTTON
+     
+     Works with ANY element having:
+     class="login-btn"
+  ----------------------------------------- */
+
+  const loginButtons =
+    document.querySelectorAll(".login-btn");
+
+  loginButtons.forEach(function (button) {
+
+    button.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+
+        openAuthModal();
+
+      }
+    );
+
+  });
+
+
+  /* -----------------------------------------
+     CLOSE BUTTON
+  ----------------------------------------- */
+
+  if (closeAuthModal) {
+
+    closeAuthModal.addEventListener(
+      "click",
+      closeAuthModalFunc
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     CLICK OUTSIDE MODAL
+  ----------------------------------------- */
+
+  if (authModal) {
+
+    authModal.addEventListener(
+      "click",
+      function (event) {
+
+        if (event.target === authModal) {
+
+          closeAuthModalFunc();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     ESC KEY
+  ----------------------------------------- */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Escape" &&
+        authModal &&
+        authModal.classList.contains("active")
+      ) {
+
+        closeAuthModalFunc();
+
+      }
+
+    }
   );
 
-}
+
+  /* -----------------------------------------
+     UPDATE LOGIN / REGISTER UI
+  ----------------------------------------- */
+
+  function updateAuthMode() {
+
+    if (
+      !authTitle ||
+      !authSubtitle ||
+      !authSubmitBtn ||
+      !toggleText
+    ) {
+
+      return;
+
+    }
+
+
+    if (isRegisterMode) {
+
+      /* REGISTER */
+
+      authTitle.textContent =
+        "CREATE ACCOUNT";
+
+      authSubtitle.textContent =
+        "Join Gyan Shakti & start learning today.";
+
+      authSubmitBtn.textContent =
+        "Sign Up";
+
+      toggleText.innerHTML =
+        'Already have an account? ' +
+        '<a href="#" id="registerToggleBtn">' +
+        'Login here' +
+        '</a>';
+
+      /* Forgot password is hidden during registration */
+
+      if (forgotPasswordBtn) {
+
+        forgotPasswordBtn.parentElement.style.display =
+          "none";
+
+      }
+
+    } else {
+
+      /* LOGIN */
+
+      authTitle.textContent =
+        "GYAN SHAKTI";
+
+      authSubtitle.textContent =
+        "Welcome back! Please login to your account.";
+
+      authSubmitBtn.textContent =
+        "Sign In";
+
+      toggleText.innerHTML =
+        'Don\'t have an account? ' +
+        '<a href="#" id="registerToggleBtn">' +
+        'Register here' +
+        '</a>';
+
+      /* Show forgot password */
+
+      if (forgotPasswordBtn) {
+
+        forgotPasswordBtn.parentElement.style.display =
+          "flex";
+
+      }
+
+    }
+
+  }
+
+
+  /* -----------------------------------------
+     LOGIN / REGISTER TOGGLE
+     
+     Event Delegation
+     ----------------------------------------- */
+
+  if (toggleText) {
+
+    toggleText.addEventListener(
+      "click",
+      function (event) {
+
+        const clickedLink =
+          event.target.closest(
+            "#registerToggleBtn"
+          );
+
+        if (!clickedLink) {
+          return;
+        }
+
+        event.preventDefault();
+
+        isRegisterMode =
+          !isRegisterMode;
+
+        updateAuthMode();
+
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     AUTH FORM SUBMIT
+  ----------------------------------------- */
+
+  if (authForm) {
+
+    authForm.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+        const emailInput =
+          document.getElementById("authEmail");
+
+        const passwordInput =
+          document.getElementById("authPassword");
+
+
+        if (!emailInput || !passwordInput) {
+          return;
+        }
+
+
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+
+        /* Validation */
+
+        if (!email) {
+
+          alert(
+            "Please enter your email address."
+          );
+
+          emailInput.focus();
+
+          return;
+
+        }
+
+
+        if (!password) {
+
+          alert(
+            "Please enter your password."
+          );
+
+          passwordInput.focus();
+
+          return;
+
+        }
+
+
+        /* REGISTER */
+
+        if (isRegisterMode) {
+
+          alert(
+            "Registration UI is working. " +
+            "Backend authentication will be connected next."
+          );
+
+          return;
+
+        }
+
+
+        /* LOGIN */
+
+        alert(
+          "Login UI is working. " +
+          "Authentication backend will be connected next."
+        );
+
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     FORGOT PASSWORD
+  ----------------------------------------- */
+
+  if (forgotPasswordBtn) {
+
+    forgotPasswordBtn.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+
+        alert(
+          "Password recovery will be connected with the Authentication Engine."
+        );
+
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     GOOGLE LOGIN
+  ----------------------------------------- */
+
+  if (googleLoginBtn) {
+
+    googleLoginBtn.addEventListener(
+      "click",
+      function () {
+
+        handleSocialLogin("Google");
+
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     FACEBOOK LOGIN
+  ----------------------------------------- */
+
+  if (facebookLoginBtn) {
+
+    facebookLoginBtn.addEventListener(
+      "click",
+      function () {
+
+        handleSocialLogin("Facebook");
+
+      }
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     SOCIAL LOGIN HANDLER
+  ----------------------------------------- */
+
+  function handleSocialLogin(provider) {
+
+    if (
+      provider !== "Google" &&
+      provider !== "Facebook"
+    ) {
+
+      console.error(
+        "Unsupported authentication provider:",
+        provider
+      );
+
+      return;
+
+    }
+
+
+    alert(
+      provider +
+      " authentication will be connected in the next Authentication Engine step."
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     INITIAL STATE
+  ----------------------------------------- */
+
+  updateAuthMode();
+
+});
