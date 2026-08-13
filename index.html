@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gyan Shakti — Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top-header">
+    <div class="brand">
+      <div class="logo">G</div>
+      <div>
+        <strong>GYAN SHAKTI</strong>
+        <small>Education • Competition • Growth</small>
+      </div>
+    </div>
+
+    <div class="search">
+      <input type="search" placeholder="Search exams, courses, competitions..." />
+      <button aria-label="Search">⌕</button>
+    </div>
+
+    <div class="actions">
+      <button class="icon-btn" aria-label="Notifications">🔔</button>
+      <button class="login-btn">Login / Register</button>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <a class="active" href="#">Home</a>
+    <a href="#">Exams</a>
+    <a href="#">Competitions</a>
+    <a href="#">Courses</a>
+    <a href="#">Scholarships</a>
+    <a href="#">Events</a>
+    <a href="#">Community</a>
+    <a href="#">More</a>
+  </nav>
+
+  <main>
+    <!-- FEATURE 01: UNLIMITED 16:9 BANNER -->
+    <section class="banner-section" aria-label="Featured banners">
+      <div class="banner-viewport">
+        <div id="bannerTrack" class="banner-track"></div>
+        <button class="banner-arrow prev" onclick="previousBanner()" aria-label="Previous banner">‹</button>
+        <button class="banner-arrow next" onclick="nextBanner()" aria-label="Next banner">›</button>
+      </div>
+      <div id="bannerDots" class="banner-dots"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Explore Gyan Shakti</h2>
+        <a href="#">View All →</a>
+      </div>
+      <div class="cards">
+        <div class="card">📝<b>Exams</b><span>Learn & test</span></div>
+        <div class="card">🏆<b>Competitions</b><span>Participate & achieve</span></div>
+        <div class="card">📚<b>Courses</b><span>Build skills</span></div>
+        <div class="card">🎓<b>Scholarships</b><span>Find opportunities</span></div>
+        <div class="card">📅<b>Events</b><span>Webinars & workshops</span></div>
+        <div class="card">💼<b>Career</b><span>Plan your future</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
