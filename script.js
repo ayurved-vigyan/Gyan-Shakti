@@ -34,89 +34,38 @@ function goToBanner(index){ showBanner(index); }
 
 renderBanners();
 setInterval(nextBanner,5000);
+// Toggle between Login and Register Mode
+const registerToggleBtn = document.getElementById("registerToggleBtn");
+const authTitle = document.getElementById("authTitle");
+const authSubtitle = document.getElementById("authSubtitle");
+const submitBtnText = document.getElementById("submitBtnText");
+const toggleText = document.getElementById("toggleText");
 
-/* =================================
-   GYAN SHAKTI AUTH MODAL
-================================= */
+let isRegisterMode = false;
 
-const authModal = document.getElementById("authModal");
-const closeAuthModal = document.getElementById("closeAuthModal");
-const loginForm = document.getElementById("loginForm");
-const registerLink = document.getElementById("registerLink");
+if (registerToggleBtn) {
+  registerToggleBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    isRegisterMode = !isRegisterMode;
 
-/* Open Modal */
-function openAuthModal() {
-  if (!authModal) return;
-
-  authModal.classList.add("active");
-  authModal.setAttribute("aria-hidden", "false");
-}
-
-/* Close Modal */
-function closeAuthModalFunc() {
-  if (!authModal) return;
-
-  authModal.classList.remove("active");
-  authModal.setAttribute("aria-hidden", "true");
-}
-
-/* Login Button */
-const loginButtons = document.querySelectorAll(".login-btn");
-
-loginButtons.forEach(function(button) {
-  button.addEventListener("click", openAuthModal);
-});
-
-/* Close Button */
-if (closeAuthModal) {
-  closeAuthModal.addEventListener("click", closeAuthModalFunc);
-}
-
-/* Click Outside Modal */
-if (authModal) {
-  authModal.addEventListener("click", function(event) {
-    if (event.target === authModal) {
-      closeAuthModalFunc();
+    if (isRegisterMode) {
+      authTitle.textContent = "CREATE ACCOUNT";
+      authSubtitle.textContent = "Join Gyan Shakti & start learning today.";
+      submitBtnText.textContent = "Sign Up";
+      toggleText.innerHTML = `Already have an account? <a href="#" id="registerToggleBtn">Login here</a>`;
+    } else {
+      authTitle.textContent = "GYAN SHAKTI";
+      authSubtitle.textContent = "Welcome back! Please login to your account.";
+      submitBtnText.textContent = "Sign In";
+      toggleText.innerHTML = `Don't have an account? <a href="#" id="registerToggleBtn">Register here</a>`;
     }
+    
+    // Re-bind event to newly created toggle link
+    document.getElementById("registerToggleBtn").addEventListener("click", arguments.callee);
   });
 }
 
-/* ESC Key */
-document.addEventListener("keydown", function(event) {
-  if (event.key === "Escape") {
-    closeAuthModalFunc();
-  }
-});
-
-/* Login Form */
-if (loginForm) {
-  loginForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    if (!email || !password) {
-      alert("Please enter your email and password.");
-      return;
-    }
-
-    /*
-      IMPORTANT:
-      अभी यह केवल UI TEST है।
-      Real authentication बाद में backend/authentication
-      system से connect किया जाएगा।
-    */
-
-    alert("Login system is ready for backend integration.");
-  });
-}
-
-/* Register */
-if (registerLink) {
-  registerLink.addEventListener("click", function(event) {
-    event.preventDefault();
-
-    alert("Registration system will be connected in the next step.");
-  });
+// Social Login Handler Function
+function handleSocialLogin(provider) {
+  alert(`${provider} Authentication integration will be connected with Firebase/Supabase in the next step!`);
 }
