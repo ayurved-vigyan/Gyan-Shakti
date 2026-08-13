@@ -25,7 +25,7 @@ function renderBanners(){
 function showBanner(index){
   current = (index + banners.length) % banners.length;
   track.style.transform = `translateX(-${current * 100}%)`;
-  [...dots.children].forEach((d,i)=>d.classList.toggle("active",i===current));
+  [...dots.children].forEach((d,i)=>d.classList.toggle("active", i === current));
 }
 
 function nextBanner(){ showBanner(current + 1); }
