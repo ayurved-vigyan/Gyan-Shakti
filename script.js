@@ -34,3 +34,89 @@ function goToBanner(index){ showBanner(index); }
 
 renderBanners();
 setInterval(nextBanner,5000);
+
+/* =================================
+   GYAN SHAKTI AUTH MODAL
+================================= */
+
+const authModal = document.getElementById("authModal");
+const closeAuthModal = document.getElementById("closeAuthModal");
+const loginForm = document.getElementById("loginForm");
+const registerLink = document.getElementById("registerLink");
+
+/* Open Modal */
+function openAuthModal() {
+  if (!authModal) return;
+
+  authModal.classList.add("active");
+  authModal.setAttribute("aria-hidden", "false");
+}
+
+/* Close Modal */
+function closeAuthModalFunc() {
+  if (!authModal) return;
+
+  authModal.classList.remove("active");
+  authModal.setAttribute("aria-hidden", "true");
+}
+
+/* Login Button */
+const loginButtons = document.querySelectorAll(".login-btn");
+
+loginButtons.forEach(function(button) {
+  button.addEventListener("click", openAuthModal);
+});
+
+/* Close Button */
+if (closeAuthModal) {
+  closeAuthModal.addEventListener("click", closeAuthModalFunc);
+}
+
+/* Click Outside Modal */
+if (authModal) {
+  authModal.addEventListener("click", function(event) {
+    if (event.target === authModal) {
+      closeAuthModalFunc();
+    }
+  });
+}
+
+/* ESC Key */
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeAuthModalFunc();
+  }
+});
+
+/* Login Form */
+if (loginForm) {
+  loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      alert("Please enter your email and password.");
+      return;
+    }
+
+    /*
+      IMPORTANT:
+      अभी यह केवल UI TEST है।
+      Real authentication बाद में backend/authentication
+      system से connect किया जाएगा।
+    */
+
+    alert("Login system is ready for backend integration.");
+  });
+}
+
+/* Register */
+if (registerLink) {
+  registerLink.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    alert("Registration system will be connected in the next step.");
+  });
+}
