@@ -66,5 +66,56 @@
   </main>
 
   <script src="script.js"></script>
+  <!-- GYAN SHAKTI AUTH MODAL -->
+<div id="authModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+
+    <button
+      type="button"
+      class="close-btn"
+      id="closeAuthModal"
+      aria-label="Close">
+      ✕
+    </button>
+
+    <div class="modal-header">
+      <h2 id="authTitle">GYAN SHAKTI</h2>
+      <p>Welcome back! Please login to your account.</p>
+    </div>
+
+    <form id="loginForm" class="form-container">
+
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email Address"
+        class="input-field"
+        required
+        autocomplete="email">
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        class="input-field"
+        required
+        autocomplete="current-password">
+
+      <button type="submit" class="submit-btn">
+        Sign In
+      </button>
+
+      <p class="footer-text">
+        Don't have an account?
+        <a href="#" id="registerLink">Register here</a>
+      </p>
+
+    </form>
+  </div>
+</div>
 </body>
 </html>
