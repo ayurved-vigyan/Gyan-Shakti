@@ -39,41 +39,10 @@
   </nav>
 
   <main>
-    <!-- FEATURE 01: UNLIMITED 16:9 BANNER -->
-    <section class="banner-section" aria-label="Featured banners">
-      <div class="banner-viewport">
-        <div id="bannerTrack" class="banner-track"></div>
-        <button class="banner-arrow prev" onclick="previousBanner()" aria-label="Previous banner">‹</button>
-        <button class="banner-arrow next" onclick="nextBanner()" aria-label="Next banner">›</button>
-      </div>
-      <div id="bannerDots" class="banner-dots"></div>
-    </section>
-
-    <section class="section">
-      <div class="section-title">
-        <h2>Explore Gyan Shakti</h2>
-        <a href="#">View All →</a>
-      </div>
-      <div class="cards">
-        <div class="card">📝<b>Exams</b><span>Learn & test</span></div>
-        <div class="card">🏆<b>Competitions</b><span>Participate & achieve</span></div>
-        <div class="card">📚<b>Courses</b><span>Build skills</span></div>
-        <div class="card">🎓<b>Scholarships</b><span>Find opportunities</span></div>
-        <div class="card">📅<b>Events</b><span>Webinars & workshops</span></div>
-        <div class="card">💼<b>Career</b><span>Plan your future</span></div>
-      </div>
-    </section>
-  </main>
-```html
-<!-- =========================================
-     GYAN SHAKTI AUTH MODAL
-========================================= -->
-
+<!-- GYAN SHAKTI AUTH MODAL -->
 <div id="authModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
 
-  <div class="modal-card auth-card" role="dialog" aria-modal="true">
-
-    <!-- Close -->
     <button
       type="button"
       class="close-btn"
@@ -82,348 +51,44 @@
       ✕
     </button>
 
+    <div class="modal-header">
+      <h2 id="authTitle">GYAN SHAKTI</h2>
+      <p>Welcome back! Please login to your account.</p>
+    </div>
 
-    <!-- =====================================
-         LOGIN SCREEN
-    ====================================== -->
+    <form id="loginForm" class="form-container">
 
-    <div id="loginScreen" class="auth-screen">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email Address"
+        class="input-field"
+        required
+        autocomplete="email">
 
-      <div class="modal-header">
-        <div class="brand-mark">G</div>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        class="input-field"
+        required
+        autocomplete="current-password">
 
-        <h2>Welcome to Gyan Shakti</h2>
-
-        <p>
-          Login to continue your learning journey.
-        </p>
-      </div>
-
-
-      <!-- Google -->
-      <button
-        type="button"
-        class="social-btn google-btn"
-        id="googleLoginBtn">
-
-        <span class="social-icon">G</span>
-
-        <span>Continue with Google</span>
-
+      <button type="submit" class="submit-btn">
+        Sign In
       </button>
-
-
-      <!-- Facebook -->
-      <button
-        type="button"
-        class="social-btn facebook-btn"
-        id="facebookLoginBtn">
-
-        <span class="social-icon">f</span>
-
-        <span>Continue with Facebook</span>
-
-      </button>
-
-
-      <div class="divider">
-        <span>OR</span>
-      </div>
-
-
-      <!-- Login Form -->
-      <form id="loginForm">
-
-        <label for="loginEmail">
-          Email Address
-        </label>
-
-        <input
-          type="email"
-          id="loginEmail"
-          name="email"
-          class="input-field"
-          placeholder="Enter your email"
-          autocomplete="email"
-          required>
-
-
-        <label for="loginPassword">
-          Password
-        </label>
-
-        <input
-          type="password"
-          id="loginPassword"
-          name="password"
-          class="input-field"
-          placeholder="Enter your password"
-          autocomplete="current-password"
-          required>
-
-
-        <button
-          type="submit"
-          class="submit-btn">
-          Sign In
-        </button>
-
-      </form>
-
 
       <p class="footer-text">
         Don't have an account?
-        <a href="#" id="registerLink">
-          Register here
-        </a>
+        <a href="#" id="registerLink">Register here</a>
       </p>
 
-    </div>
-
-
-
-    <!-- =====================================
-         REGISTRATION SCREEN
-    ====================================== -->
-
-    <div id="registerScreen" class="auth-screen hidden">
-
-      <div class="modal-header">
-
-        <div class="brand-mark">G</div>
-
-        <h2>Create Your Gyan Shakti Account</h2>
-
-        <p>
-          One account for your complete Gyan Shakti journey.
-        </p>
-
-      </div>
-
-
-      <!-- Social Registration -->
-
-      <button
-        type="button"
-        class="social-btn google-btn"
-        id="googleRegisterBtn">
-
-        <span class="social-icon">G</span>
-
-        <span>Continue with Google</span>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="social-btn facebook-btn"
-        id="facebookRegisterBtn">
-
-        <span class="social-icon">f</span>
-
-        <span>Continue with Facebook</span>
-
-      </button>
-
-
-      <div class="divider">
-        <span>OR CREATE WITH EMAIL</span>
-      </div>
-
-
-      <!-- =================================
-           PROFILE PHOTO
-      ================================== -->
-
-      <div class="profile-photo-section">
-
-        <label
-          for="profilePhoto"
-          class="profile-photo-upload">
-
-          <div
-            id="profilePhotoPreview"
-            class="profile-photo-preview">
-
-            <span id="profilePhotoIcon">
-              👤
-            </span>
-
-            <img
-              id="profilePhotoImage"
-              src=""
-              alt="Profile Preview"
-              class="hidden">
-
-          </div>
-
-          <div class="photo-upload-text">
-            <strong>Add Profile Photo</strong>
-            <small>Optional</small>
-          </div>
-
-        </label>
-
-
-        <input
-          type="file"
-          id="profilePhoto"
-          accept="image/jpeg,image/png,image/webp"
-          class="hidden">
-
-      </div>
-
-
-
-      <!-- =================================
-           REGISTRATION FORM
-      ================================== -->
-
-      <form id="registerForm">
-
-
-        <!-- Full Name -->
-
-        <label for="registerName">
-          Full Name
-        </label>
-
-        <input
-          type="text"
-          id="registerName"
-          name="fullName"
-          class="input-field"
-          placeholder="Enter your full name"
-          autocomplete="name"
-          maxlength="100"
-          required>
-
-
-        <!-- Email -->
-
-        <label for="registerEmail">
-          Email Address
-        </label>
-
-        <input
-          type="email"
-          id="registerEmail"
-          name="email"
-          class="input-field"
-          placeholder="Enter your email address"
-          autocomplete="email"
-          required>
-
-
-        <!-- Date of Birth -->
-
-        <label for="registerDob">
-          Date of Birth
-        </label>
-
-        <input
-          type="date"
-          id="registerDob"
-          name="dateOfBirth"
-          class="input-field"
-          required>
-
-
-        <!-- Password -->
-
-        <label for="registerPassword">
-          Create Password
-        </label>
-
-        <input
-          type="password"
-          id="registerPassword"
-          name="password"
-          class="input-field"
-          placeholder="Create a strong password"
-          autocomplete="new-password"
-          minlength="8"
-          required>
-
-
-        <!-- Confirm Password -->
-
-        <label for="confirmPassword">
-          Confirm Password
-        </label>
-
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          class="input-field"
-          placeholder="Confirm your password"
-          autocomplete="new-password"
-          minlength="8"
-          required>
-
-
-        <!-- Password Message -->
-
-        <div
-          id="passwordMessage"
-          class="password-message">
-        </div>
-
-
-        <!-- Terms -->
-
-        <label class="terms-row">
-
-          <input
-            type="checkbox"
-            id="termsCheckbox"
-            required>
-
-          <span>
-            I agree to the
-            <a href="#" target="_blank">
-              Terms of Service
-            </a>
-            and
-            <a href="#" target="_blank">
-              Privacy Policy
-            </a>.
-          </span>
-
-        </label>
-
-
-        <!-- Create Account -->
-
-        <button
-          type="submit"
-          class="submit-btn">
-
-          Create Account
-
-        </button>
-
-      </form>
-
-
-      <!-- Back to Login -->
-
-      <p class="footer-text">
-
-        Already have an account?
-
-        <a href="#" id="backToLogin">
-          Sign In
-        </a>
-
-      </p>
-
-    </div>
-
+    </form>
   </div>
-
 </div>
 
   <script src="script.js"></script>
