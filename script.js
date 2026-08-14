@@ -634,4 +634,3 @@ if (facebookRegisterBtn) {
   );
 
 }
-```
