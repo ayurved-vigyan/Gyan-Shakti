@@ -169,4 +169,173 @@
     border-radius: 16px;
   }
 }
+================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 400px;
+
+  background: #ffffff;
+
+  padding: 30px;
+  box-sizing: border-box;
+
+  border-radius: 20px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+
+  animation: authModalIn 0.2s ease-out;
+}
+
+@keyframes authModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  background: transparent;
+
+  border-radius: 50%;
+
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #f1f5f9;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  margin: 0 0 8px;
+  color: #0757c9;
+  font-size: 24px;
+}
+
+.modal-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.input-field {
+  width: 100%;
+  padding: 13px;
+
+  margin-bottom: 16px;
+
+  border: 1px solid #dbe2ea;
+  border-radius: 10px;
+
+  box-sizing: border-box;
+
+  font-size: 14px;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #0757c9;
+  box-shadow: 0 0 0 3px rgba(7, 87, 201, 0.1);
+}
+
+.submit-btn {
+  width: 100%;
+
+  padding: 13px;
+
+  background: #0757c9;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 10px;
+
+  font-weight: 700;
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  opacity: 0.92;
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 18px;
+  color: #64748b;
+}
+
+.footer-text a {
+  color: #0757c9;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .modal-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+}
 
