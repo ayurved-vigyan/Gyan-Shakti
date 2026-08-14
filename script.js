@@ -34,603 +34,88 @@ function goToBanner(index){ showBanner(index); }
 
 renderBanners();
 setInterval(nextBanner,5000);
-```javascript
-/* =========================================
-   GYAN SHAKTI AUTH SYSTEM
-========================================= */
-
-
-/* =========================================
-   ELEMENTS
-========================================= */
+/* =================================
+   GYAN SHAKTI AUTH MODAL
+================================= */
 
 const authModal = document.getElementById("authModal");
+const closeAuthModal = document.getElementById("closeAuthModal");
+const loginForm = document.getElementById("loginForm");
+const registerLink = document.getElementById("registerLink");
 
-const closeAuthModal =
-  document.getElementById("closeAuthModal");
-
-const loginScreen =
-  document.getElementById("loginScreen");
-
-const registerScreen =
-  document.getElementById("registerScreen");
-
-const registerLink =
-  document.getElementById("registerLink");
-
-const backToLogin =
-  document.getElementById("backToLogin");
-
-const loginForm =
-  document.getElementById("loginForm");
-
-const registerForm =
-  document.getElementById("registerForm");
-
-const profilePhoto =
-  document.getElementById("profilePhoto");
-
-const profilePhotoImage =
-  document.getElementById("profilePhotoImage");
-
-const profilePhotoIcon =
-  document.getElementById("profilePhotoIcon");
-
-const passwordMessage =
-  document.getElementById("passwordMessage");
-
-
-/* =========================================
-   OPEN AUTH MODAL
-========================================= */
-
+/* Open Modal */
 function openAuthModal() {
-
   if (!authModal) return;
 
   authModal.classList.add("active");
-
-  authModal.setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-  showLoginScreen();
-
+  authModal.setAttribute("aria-hidden", "false");
 }
 
-
-/* =========================================
-   CLOSE AUTH MODAL
-========================================= */
-
+/* Close Modal */
 function closeAuthModalFunc() {
-
   if (!authModal) return;
 
   authModal.classList.remove("active");
-
-  authModal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
+  authModal.setAttribute("aria-hidden", "true");
 }
 
-
-/* =========================================
-   LOGIN SCREEN
-========================================= */
-
-function showLoginScreen() {
-
-  if (!loginScreen || !registerScreen) return;
-
-  loginScreen.classList.remove("hidden");
-
-  registerScreen.classList.add("hidden");
-
-}
-
-
-/* =========================================
-   REGISTRATION SCREEN
-========================================= */
-
-function showRegisterScreen() {
-
-  if (!loginScreen || !registerScreen) return;
-
-  loginScreen.classList.add("hidden");
-
-  registerScreen.classList.remove("hidden");
-
-}
-
-
-/* =========================================
-   LOGIN BUTTON
-========================================= */
-
-const loginButtons =
-  document.querySelectorAll(".login-btn");
-
+/* Login Button */
+const loginButtons = document.querySelectorAll(".login-btn");
 
 loginButtons.forEach(function(button) {
-
-  button.addEventListener(
-    "click",
-    openAuthModal
-  );
-
+  button.addEventListener("click", openAuthModal);
 });
 
-
-/* =========================================
-   CLOSE BUTTON
-========================================= */
-
+/* Close Button */
 if (closeAuthModal) {
-
-  closeAuthModal.addEventListener(
-    "click",
-    closeAuthModalFunc
-  );
-
+  closeAuthModal.addEventListener("click", closeAuthModalFunc);
 }
 
-
-/* =========================================
-   REGISTER HERE
-========================================= */
-
-if (registerLink) {
-
-  registerLink.addEventListener(
-    "click",
-    function(event) {
-
-      event.preventDefault();
-
-      showRegisterScreen();
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   BACK TO LOGIN
-========================================= */
-
-if (backToLogin) {
-
-  backToLogin.addEventListener(
-    "click",
-    function(event) {
-
-      event.preventDefault();
-
-      showLoginScreen();
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   CLICK OUTSIDE
-========================================= */
-
+/* Click Outside Modal */
 if (authModal) {
-
-  authModal.addEventListener(
-    "click",
-    function(event) {
-
-      if (event.target === authModal) {
-
-        closeAuthModalFunc();
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   ESCAPE KEY
-========================================= */
-
-document.addEventListener(
-  "keydown",
-  function(event) {
-
-    if (event.key === "Escape") {
-
+  authModal.addEventListener("click", function(event) {
+    if (event.target === authModal) {
       closeAuthModalFunc();
-
     }
-
-  }
-);
-
-
-/* =========================================
-   PROFILE PHOTO PREVIEW
-========================================= */
-
-if (profilePhoto) {
-
-  profilePhoto.addEventListener(
-    "change",
-    function(event) {
-
-      const file =
-        event.target.files[0];
-
-      if (!file) return;
-
-
-      /* File type validation */
-
-      const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-      ];
-
-
-      if (!allowedTypes.includes(file.type)) {
-
-        alert(
-          "Please select a JPG, PNG or WEBP image."
-        );
-
-        profilePhoto.value = "";
-
-        return;
-
-      }
-
-
-      /* File size validation */
-
-      const maxSize =
-        5 * 1024 * 1024;
-
-
-      if (file.size > maxSize) {
-
-        alert(
-          "Profile photo must be smaller than 5 MB."
-        );
-
-        profilePhoto.value = "";
-
-        return;
-
-      }
-
-
-      /* Preview */
-
-      const reader =
-        new FileReader();
-
-
-      reader.onload =
-        function(e) {
-
-          profilePhotoImage.src =
-            e.target.result;
-
-          profilePhotoImage.classList.remove(
-            "hidden"
-          );
-
-          profilePhotoIcon.classList.add(
-            "hidden"
-          );
-
-        };
-
-
-      reader.readAsDataURL(file);
-
-    }
-  );
-
+  });
 }
 
-
-/* =========================================
-   PASSWORD MATCH
-========================================= */
-
-function checkPasswordMatch() {
-
-  const password =
-    document.getElementById(
-      "registerPassword"
-    );
-
-  const confirmPassword =
-    document.getElementById(
-      "confirmPassword"
-    );
-
-
-  if (!password || !confirmPassword) {
-    return false;
+/* ESC Key */
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeAuthModalFunc();
   }
+});
 
-
-  if (!confirmPassword.value) {
-
-    passwordMessage.textContent = "";
-
-    return false;
-
-  }
-
-
-  if (
-    password.value !==
-    confirmPassword.value
-  ) {
-
-    passwordMessage.textContent =
-      "Passwords do not match.";
-
-    passwordMessage.style.color =
-      "#dc2626";
-
-    return false;
-
-  }
-
-
-  passwordMessage.textContent =
-    "Passwords match.";
-
-  passwordMessage.style.color =
-    "#16a34a";
-
-  return true;
-
-}
-
-
-const passwordInput =
-  document.getElementById(
-    "registerPassword"
-  );
-
-
-const confirmPasswordInput =
-  document.getElementById(
-    "confirmPassword"
-  );
-
-
-if (passwordInput) {
-
-  passwordInput.addEventListener(
-    "input",
-    checkPasswordMatch
-  );
-
-}
-
-
-if (confirmPasswordInput) {
-
-  confirmPasswordInput.addEventListener(
-    "input",
-    checkPasswordMatch
-  );
-
-}
-
-
-/* =========================================
-   LOGIN FORM
-========================================= */
-
+/* Login Form */
 if (loginForm) {
+  loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
 
-  loginForm.addEventListener(
-    "submit",
-    function(event) {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
 
-      event.preventDefault();
-
-      /*
-        REAL LOGIN WILL BE CONNECTED
-        TO AUTHENTICATION SERVICE
-        IN THE NEXT STEP.
-      */
-
-      alert(
-        "Login authentication will be connected next."
-      );
-
+    if (!email || !password) {
+      alert("Please enter your email and password.");
+      return;
     }
-  );
 
+    /*
+      IMPORTANT:
+      अभी यह केवल UI TEST है।
+      Real authentication बाद में backend/authentication
+      system से connect किया जाएगा।
+    */
+
+    alert("Login system is ready for backend integration.");
+  });
 }
 
+/* Register */
+if (registerLink) {
+  registerLink.addEventListener("click", function(event) {
+    event.preventDefault();
 
-/* =========================================
-   REGISTRATION FORM
-========================================= */
-
-if (registerForm) {
-
-  registerForm.addEventListener(
-    "submit",
-    function(event) {
-
-      event.preventDefault();
-
-
-      /* Password check */
-
-      if (!checkPasswordMatch()) {
-
-        alert(
-          "Please make sure both passwords match."
-        );
-
-        return;
-
-      }
-
-
-      /* Terms check */
-
-      const termsCheckbox =
-        document.getElementById(
-          "termsCheckbox"
-        );
-
-
-      if (
-        !termsCheckbox ||
-        !termsCheckbox.checked
-      ) {
-
-        alert(
-          "Please accept the Terms and Privacy Policy."
-        );
-
-        return;
-
-      }
-
-
-      /*
-        IMPORTANT:
-
-        अभी account वास्तव में create नहीं होगा।
-
-        अगले चरण में इस form को
-        secure authentication + database
-        से connect किया जाएगा।
-      */
-
-      alert(
-        "Registration form is ready for secure account integration."
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   GOOGLE AUTH BUTTONS
-========================================= */
-
-const googleLoginBtn =
-  document.getElementById(
-    "googleLoginBtn"
-  );
-
-const googleRegisterBtn =
-  document.getElementById(
-    "googleRegisterBtn"
-  );
-
-
-function startGoogleAuthentication() {
-
-  /*
-    Google OAuth / Firebase Authentication
-    will be connected here.
-
-    DO NOT collect or handle Google
-    passwords manually.
-  */
-
-  alert(
-    "Google authentication will be connected in the secure authentication step."
-  );
-
-}
-
-
-if (googleLoginBtn) {
-
-  googleLoginBtn.addEventListener(
-    "click",
-    startGoogleAuthentication
-  );
-
-}
-
-
-if (googleRegisterBtn) {
-
-  googleRegisterBtn.addEventListener(
-    "click",
-    startGoogleAuthentication
-  );
-
-}
-
-
-/* =========================================
-   FACEBOOK AUTH BUTTONS
-========================================= */
-
-const facebookLoginBtn =
-  document.getElementById(
-    "facebookLoginBtn"
-  );
-
-const facebookRegisterBtn =
-  document.getElementById(
-    "facebookRegisterBtn"
-  );
-
-
-function startFacebookAuthentication() {
-
-  /*
-    Facebook OAuth will be connected
-    through the official authentication
-    provider configuration.
-  */
-
-  alert(
-    "Facebook authentication will be connected in the secure authentication step."
-  );
-
-}
-
-
-if (facebookLoginBtn) {
-
-  facebookLoginBtn.addEventListener(
-    "click",
-    startFacebookAuthentication
-  );
-
-}
-
-
-if (facebookRegisterBtn) {
-
-  facebookRegisterBtn.addEventListener(
-    "click",
-    startFacebookAuthentication
-  );
-
+    alert("Registration system will be connected in the next step.");
+  });
 }
